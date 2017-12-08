@@ -1,10 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+const nocache = require('superagent-no-cache');
+const request = require('superagent');
+const store = require('store');
 
-import App from './components/App';
-import './index.scss';
+request
+  .post('https://rise.mpiwg-berlin.mpg.de/api/sign_in')
+  .set('Content-Type', 'application/json')
+  .send('{"user":{"email":"pbelouin@mpiwg-berlin.mpg.de","password":"password"}}')
+  .use(nocache) // Prevents caching of *only* this request
+  .end((err, res) => {
+    store.set('apiToken',res.body['auth_token']);
+  });
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+request
+  .get('https://rise.mpiwg-berlin.mpg.de/api/collections')
+  .set('RISE-API-TOKEN', store.get('apiToken'))
+  .use(nocache) // Prevents caching of *only* this request
+  .end((err, res) => {
+    console.log(res);
+  });

@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "rise_client",
   "version": "0.1.0",
   "private": true,
   "jest": {
@@ -15,8 +15,11 @@
     "test": "NODE_ENV=test jest"
   },
   "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "store": "^2.0.12",
+    "superagent": "^3.8.1",
+    "superagent-charset": "^1.2.0",
+    "superagent-no-cache": "^0.1.1",
+    "superagent-prefix": "^0.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -29,16 +32,13 @@
     "enzyme": "^2.7.1",
     "enzyme-to-json": "^1.5.0",
     "eslint": "^3.19.0",
-    "eslint-config-react-app": "^0.6.2",
     "eslint-plugin-flowtype": "^2.32.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-webpack-plugin": "^2.28.0",
     "jest": "^20.0.0",
     "node-sass": "^4.5.0",
-    "react-addons-test-utils": "^15.4.2",
     "sass-loader": "^6.0.3",
     "shx": "^0.2.2",
     "style-loader": "^0.17.0",

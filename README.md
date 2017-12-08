@@ -1,4 +1,4 @@
-# RISE API Client setup
+# RISE API Client
 
     yarn
 

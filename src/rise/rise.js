@@ -9,6 +9,7 @@ exports.auth = {
   login : function(email, password){
     request
       .post('https://rise.mpiwg-berlin.mpg.de/api/sign_in')
+      .set('Content-Type', 'application/json')
       .send('{"user":{"email":"'+email+'","password":"'+password+'"}}')
       .use(nocache)
       .end((err, res) => {
@@ -16,7 +17,12 @@ exports.auth = {
       });
   },
   logout : function (){
-      console.log('logout');
+    request
+      .delete('https://rise.mpiwg-berlin.mpg.de/api/sign_out')
+      .set('RISE-API-TOKEN', store.get('apiToken'))
+      .end((err, res) => {
+        console.log(res)
+      });
   }
 }
 

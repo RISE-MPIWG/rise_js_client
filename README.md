@@ -1,7 +1,5 @@
-# Perfectly simple Webpack 2 setup
+# RISE API Client setup
 
-    git clone --bare git@github.com:tb/perfectly-simple-webpack-starter.git client 
-    cd client
     yarn
 
 Run tests

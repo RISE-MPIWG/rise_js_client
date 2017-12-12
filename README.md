@@ -1,4 +1,12 @@
-# RISE API Client
+# RISE API JS Client Library
+
+## Usage
+
+Import the library by using
+
+   const rise = require('./rise');
+
+in your js source code.
 
 ## Setup
 

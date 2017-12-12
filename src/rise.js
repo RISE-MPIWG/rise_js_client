@@ -3,110 +3,93 @@
 const nocache = require('superagent-no-cache');
 const request = require('superagent');
 const store = require('store');
-const prefix = 'https://rise.mpiwg-berlin.mpg.de/api/';
+
+
+
+const lib = function(){
+
+  function doGet (url, params){
+    return request
+      .get(store.get('riseRemote') + url)
+      .accept('application/json')
+      .query(params)
+      .set('RISE-API-TOKEN', store.get('riseApiToken'))
+      .use(nocache)
+  }
+
+  function doPost (url, params){
+    return request
+      .post(store.get('riseRemote') + url)
+      .set('Content-Type', 'application/json')
+      .accept('application/json')
+      .send(params)
+      .use(nocache)
+  }
+
+  return {
+    doGet: doGet,
+    doPost: doPost
+  };
+
+}();
+
+exports.init = {
+  user : function(email, password){
+    lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
+      .end((err, res) => {
+        store.set('riseUser',{'email': email, 'password': password});
+        store.set('riseApiToken',res.body['auth_token']);
+      });
+  },
+  setRemote : function(remote = 'https://rise.mpiwg-berlin.mpg.de/api'){
+    store.set('riseRemote', remote);
+  }
+}
 
 exports.auth = {
 
-  login : function(email, password){
-    request
-      .post(prefix+'sign_in')
-      .set('Content-Type', 'application/json')
-      .send('{"user":{"email":"'+email+'","password":"'+password+'"}}')
-      .use(nocache)
-      .end((err, res) => {
-        store.set('apiToken',res.body['auth_token']);
-      });
-  },
   logout : function (){
     request
-      .delete(prefix+'sign_out')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
+      .delete(store.get('riseRemote')+'/sign_out')
+      .set('RISE-API-TOKEN', store.get('riseApiToken'))
       .end((err, res) => {
-        console.log(res)
+        store.remove('riseUser');
+        store.remove('riseApiToken');
+        store.remove('riseRemote');
+        console.log('rise logout successful');
       });
   }
 }
 
 exports.collections = {
-  all : function(){
-    request
-      .get(prefix+'collections')
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache) // Prevents caching of *only* this request
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+
+  all : function(params = { ...params}){
+    return lib.doGet('/collections', params);
   },
   one : function(id){
-    request
-      .get(prefix+'collections/'+id)
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache)
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+    return lib.doGet('/collections/'+id, null);
   },
-  resources : function(id){
-    request
-      .get(prefix+'collections/'+id+'/resources')
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache)
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+  resources : function(id, params = { ...params}){
+    return lib.doGet('/collections/'+id+'/resources', params);
   }
 }
+
 exports.resources = {
-  all : function(){
-    request
-      .get(prefix+'collections')
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache) // Prevents caching of *only* this request
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+
+  all : function(params = { ...params}){
+    return lib.doGet('/resources', params);
   },
   one : function(id){
-    request
-      .get(prefix+'collections/'+id)
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache)
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+    return lib.doGet('/resources/'+id, null);
   },
-  sections : function(id){
-    request
-      .get(prefix+'resources/'+id+'/sections')
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache)
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+  sections : function(id, params = { ...params}){
+    return lib.doGet('/resources/'+id+'/sections', params);
   }
 }
+
 exports.sections = {
-  contentUnits : function(id){
-    request
-      .get(prefix+'sections/'+id+'/content_units')
-      .set('Accept', 'application/json')
-      .set('RISE-API-TOKEN', store.get('apiToken'))
-      .use(nocache)
-      .end((err, res) => {
-      	console.log(res.body);
-        return res.body;
-      });
+
+  contentUnits : function(id, params = { ...params}){
+    return lib.doGet('/sections/'+id+'/content_units', params);
   }
 }

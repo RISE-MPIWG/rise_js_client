@@ -1,5 +1,5 @@
 {
-  "name": "rise_client",
+  "name": "@rise/rise_client",
   "version": "0.1.0",
   "private": true,
   "jest": {
@@ -45,5 +45,18 @@
     "webpack": "^2.2.1",
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^2.4.1"
-  }
+  },
+  "description": "yarn",
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.gwdg.de/portal.pbeloui/rise_js_client"
+  },
+  "keywords": [
+    "rise",
+    "asia",
+    "network"
+  ],
+  "author": "pbelouin@mpiwg-berlin.mpg.de",
+  "license": "ISC"
 }

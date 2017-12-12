@@ -1,5 +1,7 @@
 # RISE API Client
 
+## Setup
+
     yarn
 
 Run tests

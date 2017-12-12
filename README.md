@@ -8,6 +8,37 @@ Import the library by using
 
 in your js source code.
 
+This will allow you to call RISE-specific functions. 
+
+First, you need to init the client library by doing:
+
+    rise.init.setRemote();
+
+This will default the remote to the rise test server (https://rise.mpiwg-berlin.mpg.de). simply set the remote of your choice as a parameter to this function like so:
+
+    rise.init.setRemote('http://localhost:3000')
+
+Next, you have to init the user (this performs the login function on the remote server, and sets the user information/token in local storage).
+
+    rise.init.user('user@mpiwg-berlin.mpg.de', 'userpassword');
+
+
+Congratulations, you are all set to go! now you can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If the call is successful, a standard http response object will be made available in the then() function:
+
+    rise.collections.all({filter: 'chin'}).then(function(res){
+      console.log(res);
+    });
+
+
+Please have a look at index.js as well as the RISE API definition for an overview of the available calls.
+
+Each RISE API call function that returns a collection accepts the following parameters:
+
+    filter: allows you to filter the returned objects using a string (defaults to nothing)
+    page: fetches the required page (defaults to page 1)
+
+Please contact pbelouin@mpiwg-berlin.mpg.de if you have any questions/comments, or if you would like to contribute to this library.
+
 ## Setup
 
     yarn

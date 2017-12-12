@@ -16,7 +16,7 @@ First, you need to init the client library by doing:
 
 This will default the remote to the rise test server (https://rise.mpiwg-berlin.mpg.de). simply set the remote of your choice as a parameter to this function like so:
 
-    rise.init.setRemote('http://localhost:3000')
+    rise.init.setRemote('http://localhost:3000');
 
 Next, you have to init the user (this performs the login function on the remote server, and sets the user information/token in local storage).
 
@@ -38,6 +38,10 @@ Each RISE API call function that returns a collection accepts the following para
     page: fetches the required page (defaults to page 1)
 
 Please contact pbelouin@mpiwg-berlin.mpg.de if you have any questions/comments, or if you would like to contribute to this library.
+
+If you wish to completely logout the user and empty the RISE js library values stored in local storage, please use
+
+    rise.auth.logout();
 
 ## Setup
 

@@ -4,7 +4,7 @@
 
 Import the library by using
 
-   const rise = require('./rise');
+    const rise = require('./rise');
 
 in your js source code.
 

@@ -1,7 +1,7 @@
 {
-  "name": "@rise/rise_client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "rise_client",
+  "version": "0.1.2",
+  "main": "./src/rise.js",
   "jest": {
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
@@ -24,6 +24,7 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
@@ -46,8 +47,7 @@
     "webpack-config-utils": "^2.3.0",
     "webpack-dev-server": "^2.4.1"
   },
-  "description": "yarn",
-  "main": "webpack.config.js",
+  "description": "javascript client allowing one to interact with the RISE API",
   "repository": {
     "type": "git",
     "url": "https://gitlab.gwdg.de/portal.pbeloui/rise_js_client"

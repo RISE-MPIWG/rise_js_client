@@ -61,13 +61,6 @@ module.exports = removeEmpty({
       filename: 'index.html',
       template: './src/index.ejs',
       environment: nodeEnv,
-    }),
-
-    ifProduction(new CopyWebpackPlugin([{ from: 'assets', to: 'assets' }])),
-
-    ifProduction(
-      new ExtractTextPlugin('[name]-bundle-[hash].css'),
-      new ExtractTextPlugin('[name]-bundle.css')
-    ),
+    })
   ]),
 });

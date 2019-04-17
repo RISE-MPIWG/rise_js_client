@@ -10,6 +10,8 @@ in your js source code.
 
 This will allow you to call RISE-specific functions. 
 
+IMPORTANT: Your IP/Host will need to be whitelisted by the RISE instance you want to access - please contact pbelouin@mpiwg-berlin.mpg.de for more information about this.
+
 First, you need to init the client library by doing:
 
     rise.init.setRemote();

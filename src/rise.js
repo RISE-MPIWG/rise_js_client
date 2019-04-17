@@ -79,10 +79,10 @@ exports.resources = {
   all : function(params = { ...params}){
     return lib.doGet('/resources', params);
   },
-  one : function(id){
+  one : function(uuid){
     return lib.doGet('/resources/'+uuid, null);
   },
-  sections : function(id, params = { ...params}){
+  sections : function(uuid, params = { ...params}){
     return lib.doGet('/resources/'+uuid+'/sections', params);
   }
 }

@@ -17,13 +17,13 @@ rise.collections.resources(1, {filter: '三'}).then(function(res){
   console.log(res);
 });
 
-rise.resources.sections(3898).then(function(res){
+rise.resources.sections('d4540097-538e-4c9a-b79d-3e11d7763e3e').then(function(res){
   console.log('RESPONSE');
   console.log(res);
 });
 
 
-rise.sections.contentUnits(95).then(function(res){
+rise.sections.contentUnits('d9d60681-405e-4f5e-b8e6-7922df3494de').then(function(res){
   console.log('RESPONSE');
   console.log(res);
 });

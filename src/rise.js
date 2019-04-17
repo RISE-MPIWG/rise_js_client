@@ -66,11 +66,11 @@ exports.collections = {
   all : function(params = { ...params}){
     return lib.doGet('/collections', params);
   },
-  one : function(id){
-    return lib.doGet('/collections/'+id, null);
+  one : function(uuid){
+    return lib.doGet('/collections/'+uuid, null);
   },
-  resources : function(id, params = { ...params}){
-    return lib.doGet('/collections/'+id+'/resources', params);
+  resources : function(uuid, params = { ...params}){
+    return lib.doGet('/collections/'+uuid+'/resources', params);
   }
 }
 
@@ -80,16 +80,16 @@ exports.resources = {
     return lib.doGet('/resources', params);
   },
   one : function(id){
-    return lib.doGet('/resources/'+id, null);
+    return lib.doGet('/resources/'+uuid, null);
   },
   sections : function(id, params = { ...params}){
-    return lib.doGet('/resources/'+id+'/sections', params);
+    return lib.doGet('/resources/'+uuid+'/sections', params);
   }
 }
 
 exports.sections = {
 
-  contentUnits : function(id, params = { ...params}){
-    return lib.doGet('/sections/'+id+'/content_units', params);
+  contentUnits : function(uuid, params = { ...params}){
+    return lib.doGet('/sections/'+uuid+'/content_units', params);
   }
 }

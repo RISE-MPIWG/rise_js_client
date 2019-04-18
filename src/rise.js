@@ -37,7 +37,7 @@ exports.init = {
   user : function(email, password){
     lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
       .end((err, res) => {
-        store.set('riseUser',{'email': email, 'password': password});
+        store.set('riseUser',{'email': email});
         store.set('riseApiToken',res.body['auth_token']);
       });
   },

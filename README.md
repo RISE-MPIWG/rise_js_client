@@ -31,6 +31,22 @@ Congratulations, you are all set to go! now you can call the RISE collection, re
       console.log(res);
     });
 
+    
+    rise.collections.resources(1, {filter: '三'}).then(function(res){
+      console.log('RESPONSE');
+      console.log(res);
+    });
+    
+    rise.resources.sections('d4540097-538e-4c9a-b79d-3e11d7763e3e').then(function(res){
+      console.log('RESPONSE');
+      console.log(res);
+    });
+    
+    
+    rise.sections.contentUnits('d9d60681-405e-4f5e-b8e6-7922df3494de').then(function(res){
+      console.log('RESPONSE');
+      console.log(res);
+    });
 
 Please have a look at index.js as well as the RISE API definition for an overview of the available calls.
 

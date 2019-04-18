@@ -24,7 +24,11 @@ You can login a user by using auth.login(). Tthis performs the login function on
 
     rise.auth.login('user@mpiwg-berlin.mpg.de', 'userpassword');
 
-Please note that this is not necessary, and if no user is logged in only public/open resources will be accessible through the API.
+If you wish to completely logout the user and empty the RISE js library values stored in local storage, please use
+
+    rise.auth.logout();
+
+Please note that authenticating users is not necessary if you just want to consume public/open resources made available by a SHINE-compatible API.
 
 You can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If a call is successful, a standard http response object will be made available in the then() function:
 
@@ -41,10 +45,6 @@ Each SHINE API call function that returns a collection or a resource accepts the
     page: fetches the required page (defaults to page 1)
 
 Please contact pbelouin@mpiwg-berlin.mpg.de if you have any questions/comments, or if you would like to contribute to this library.
-
-If you wish to completely logout the user and empty the RISE js library values stored in local storage, please use
-
-    rise.auth.logout();
 
 ## Setup
 

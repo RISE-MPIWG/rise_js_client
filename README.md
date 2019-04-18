@@ -6,7 +6,7 @@ Import the library by using
 
     const rise = require('./rise');
 
-in your js source code.
+in your js source code. You can also use it in the browser directly - in any case, please visit https://rise.mpiwg-berlin.mpg.de/jslib for a more complete, interactive description of this library.
 
 This will allow you to call RISE-specific functions. 
 

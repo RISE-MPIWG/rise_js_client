@@ -10,35 +10,43 @@
   <% for (var key in htmlWebpackPlugin.files.js) { %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[key] %>"></script>
   <% } %>
-  <title>Rise Client Library</title>
+  <title>Rise Client Documentation</title>
 </head>
 <body>
   <div id="root" class='markdown-body' style="padding:20px">
-    <h1>Welcome to the RISE Client Library</h1>
-    <p>This library is designed to allow you to interact easily with the SHINE API.</p>
-    <h2>Usage</h2>
-    <p>Include the rise_client.js file in the header of your html file. You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to. If you are not sure how to do this, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a></p>
+    <h1>RISE Client Library Documentation</h1>
+    <p>This library is designed to allow developers to interact easily with APIs compatible with <a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a>, a restful API protocol that allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. Please visit the <a href="https://rise.mpiwg-berlin.mpg.de">RISE website</a> for more information about SHINE and the RISE project.</p>
+    <h2>Installation</h2>
+    <h3>Link to the library in your browser</h3>
+    <p>Link to the <a href='rise_client.js' download='rise_client.js'>rise_client.js</a> file in the header of your html file. Alternatively, if you always want the latest version, you can also link to this file directly from our server at <a href="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js">rise.mpiwg-berlin.mpg.de/jslib/rise_client.js</a>. You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to; If you are not sure how to get your host or IP whitelisted, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a>. The most popular RISE instance at the moment is hosted by the <a href="https://www.mpiwg-berlin.mpg.de/">Max Planck Institute for the History of Science</a> at <a href="https://rise.mpiwg-berlin.mpg.de">rise.mpiwg-berlin.mpg.de</a>.</p>
     <pre>
-      &lt;script type="text/javascript" src="rise_js_client.js"&gt;
+      &lt;script type="text/javascript" src="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js"&gt;&lt;/script&gt;
     </pre>
-    <p> You will then have access to the <b>rise</b> object, which allows you to perform action on the SHINE-compatible instance of your choice. You then need to init this <b>rise</b> object, and point it to the instance of your choice. Please note that using setRemote without a parameter defaults to the remote path to the <i>rise.mpiwg.berlin.mpg.de/api</i> instance</p>
+    <h3>Using NPM or Yarn</h3>
+    <p>run</p>
+    <pre>npm install rise_client</pre>
+    <p>at the root of your javascript project.</p>
+    <h2>Usage</h2>
+    <p>The library makes the <b>rise</b> object available. This object allows you to perform action on the SHINE-compatible instance of your choice. You first need to initialise this <b>rise</b> object by pointing it to the instance of your choice. Please note that using <i>setRemote()</i> without a parameter defaults to the <i>rise.mpiwg.berlin.mpg.de/api</i> instance URL.</p>
     <script>
     rise.init.setRemote()</script>
     <pre>
       rise.init.setRemote();<br>
       rise.init.setRemote('path_to.remote/instance/api');
     </pre>
-    <p>Users can sign in using the following function. It is possible to use the API without signing in; In this case, the client library will only have access to publicly accessible collections, resources, sections and content units</p>
+    <h3>Authentication</h3>
+    <p>Users can sign in using <i>auth.login()</i>. Please note that it is possible to use the API without signing in; In this case, the client will only have access to publicly accessible collections, resources, sections and content units.</p>
     <pre>
       rise.auth.login('user@email.com', 'user_password');
     </pre>
-    <p>You can sign out the user by using the following function</p>
+    <p>You can sign out the user by using <i>auth.logout()</i></p>
     <pre>
       rise.auth.logout();
     </pre>
-    <p>Please note that it is also possible to authenticate calls to a RISE instance by using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials'>XMLHttp​Request​.with​Credentials</a> property, by using the active session of the RISE instance you are calling the tool from.</p>
-    <h2>Fetching text from the RISE instance</h2>
-    <p> the <b>rise</b> object provides a number of functions that allow you to fetch the collections, resources, sections and content units the user has access to.</p>
+    <p>Please note that it is also possible to authenticate calls to a RISE instance by using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials'>XMLHttp​Request​.with​Credentials</a> property, which will use the active session of the RISE instance you are calling the tool from for authentication. If you are not sure about how to achieve this, please contact <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">Pascal Belouin</a>.</p>
+    <h2>Fetching text from a  RISE instance or a SHINE-compatible API</h2>
+    <p> <a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a> is a restful API which allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. The way the SHINE API models this data is shown in the figure below. This library makes this data accessible through the <b>rise</b> object, which features a number of functions, the most important of which are enumerated below.</p>
+    <img src="https://rise.mpiwg-berlin.mpg.de/assets/rise_resource_domain_model_hz-fbdf8ea5ff7c023af7e520b8410121e814a100effd129989cfb0c027a310fce1.svg">
 
 
     <h3>Collections</h3>

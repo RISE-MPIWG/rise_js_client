@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "shx rm -rf public/** && NODE_ENV=production webpack -p --progress",
+    "build_browser": "shx rm -rf public/** && NODE_ENV=production webpack -p --progress --config browser.webpack.config",
     "lint": "eslint --ext .js,.jsx src/",
     "lint:fix": "npm run lint -- --fix",
     "start": "webpack-dev-server",

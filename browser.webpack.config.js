@@ -9,10 +9,10 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const { ifDevelopment, ifProduction } = getIfUtils(nodeEnv);
 
 module.exports = removeEmpty({
-  entry:  './src/index.js',
+  entry:  './src/index_browser.js',
 
   output: {
-    filename: ifProduction('[name]-bundle-[hash].js', '[name]-bundle.js'),
+    filename: ifProduction('rise.js', 'rise-bundle.js'),
     path: path.resolve(__dirname, 'public'),
   },
 

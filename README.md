@@ -1,5 +1,7 @@
 # RISE API JS Client Library
 
+This library is designed to allow developers to interact easily with APIs compatible with SHINE, a restful API protocol that allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. Please visit https://rise.mpiwg-berlin.mpg.de for more information about SHINE and the RISE project.
+
 ## Usage
 
 Import the library by using

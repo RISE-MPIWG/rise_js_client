@@ -20,12 +20,13 @@ This will default the remote to the rise test server (https://rise.mpiwg-berlin.
 
     rise.init.setRemote('http://localhost:3000');
 
-Next, you have to init the user (this performs the login function on the remote server, and sets the user information/token in local storage).
+You can login a user by using auth.login(). Tthis performs the login function on the remote server, and stores the user information/token in local storage.
 
     rise.auth.login('user@mpiwg-berlin.mpg.de', 'userpassword');
 
+Please note that this is not necessary, and if no user is logged in only public/open resources will be accessible through the API.
 
-Congratulations, you are all set to go! now you can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If the call is successful, a standard http response object will be made available in the then() function:
+You can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If a call is successful, a standard http response object will be made available in the then() function:
 
     rise.collections.all({filter: 'chin'}).then(function(res){
       console.log(res);

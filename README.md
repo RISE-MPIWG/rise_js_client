@@ -16,7 +16,7 @@ First, you need to init the client library by doing:
 
     rise.init.setRemote();
 
-This will default the remote to the rise test server (https://rise.mpiwg-berlin.mpg.de). simply set the remote of your choice as a parameter to this function like so:
+This will default the remote to the rise test server (https://rise.mpiwg-berlin.mpg.de). If you prefer to point to a development version or a SHINE-compatible resource provider, simply set the remote of your choice as a parameter to this function like so:
 
     rise.init.setRemote('http://localhost:3000');
 

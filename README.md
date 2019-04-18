@@ -22,7 +22,7 @@ This will default the remote to the rise test server (https://rise.mpiwg-berlin.
 
 Next, you have to init the user (this performs the login function on the remote server, and sets the user information/token in local storage).
 
-    rise.init.user('user@mpiwg-berlin.mpg.de', 'userpassword');
+    rise.auth.login('user@mpiwg-berlin.mpg.de', 'userpassword');
 
 
 Congratulations, you are all set to go! now you can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If the call is successful, a standard http response object will be made available in the then() function:
@@ -32,9 +32,9 @@ Congratulations, you are all set to go! now you can call the RISE collection, re
     });
 
 
-Please have a look at index.js as well as the RISE API definition for an overview of the available calls.
+Please have a look at index.js as well as the SHINE API definition for an overview of the available calls.
 
-Each RISE API call function that returns a collection accepts the following parameters:
+Each SHINE API call function that returns a collection or a resource accepts the following parameters:
 
     filter: allows you to filter the returned objects using a string (defaults to nothing)
     page: fetches the required page (defaults to page 1)

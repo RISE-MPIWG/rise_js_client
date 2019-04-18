@@ -8,7 +8,7 @@ Import the library by using
 
 This will allow you to call RISE-specific functions.
 
-You can also use this library the 'old-school way' by linking to it using a script tag - for more information about this and for a more complete, interactive description of this library, please visit https://rise.mpiwg-berlin.mpg.de/jslib. To know more about the RISE & SHINE project, please visit our website at https://rise.mpiwg-berlin.mpg.de 
+You can also use this library the 'old-school way' by linking to it using a script tag - for more information about this and for a more complete, interactive description of this library, please visit https://rise.mpiwg-berlin.mpg.de/jslib. To know more about the RISE & SHINE project, please visit our website at https://rise.mpiwg-berlin.mpg.de. 
 
 IMPORTANT: Your IP/Host will need to be whitelisted by the RISE instance you want to access - please contact pbelouin@mpiwg-berlin.mpg.de for more information about this.
 

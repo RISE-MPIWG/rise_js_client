@@ -3,15 +3,184 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css" rel='stylesheet'>
   <% for (var key in htmlWebpackPlugin.files.css) { %>
     <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
   <% } %>
-  <title>Rise Client</title>
+  <% for (var key in htmlWebpackPlugin.files.js) { %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[key] %>"></script>
+  <% } %>
+  <title>Rise Client Library</title>
 </head>
 <body>
-  <div id="root">RISE CLIENT</div>
-  <% for (var key in htmlWebpackPlugin.files.js) { %>
-    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[key] %>">
-  <% } %>
+  <div id="root" class='markdown-body' style="padding:20px">
+    <h1>Welcome to the RISE Client Library</h1>
+    <p>This library is designed to allow you to interact easily with the SHINE API.</p>
+    <h2>Usage</h2>
+    <p>Include the rise_client.js file in the header of your html file. You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to. If you are not sure how to do this, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a></p>
+    <pre>
+      &lt;script type="text/javascript" src="rise_js_client.js"&gt;
+    </pre>
+    <p> You will then have access to the <b>rise</b> object, which allows you to perform action on the SHINE-compatible instance of your choice. You then need to init this <b>rise</b> object, and point it to the instance of your choice. Please note that using setRemote without a parameter defaults to the remote path to the <i>rise.mpiwg.berlin.mpg.de/api</i> instance</p>
+    <script>
+    rise.init.setRemote()</script>
+    <pre>
+      rise.init.setRemote();<br>
+      rise.init.setRemote('path_to.remote/instance/api');
+    </pre>
+    <p>Users can sign in using the following function. It is possible to use the API without signing in; In this case, the client library will only have access to publicly accessible collections, resources, sections and content units</p>
+    <pre>
+      rise.auth.login('user@email.com', 'user_password');
+    </pre>
+    <p>You can sign out the user by using the following function</p>
+    <pre>
+      rise.auth.logout();
+    </pre>
+    <p>Please note that it is also possible to authenticate calls to a RISE instance by using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials'>XMLHttp​Request​.with​Credentials</a> property, by using the active session of the RISE instance you are calling the tool from.</p>
+    <h2>Fetching text from the RISE instance</h2>
+    <p> the <b>rise</b> object provides a number of functions that allow you to fetch the collections, resources, sections and content units the user has access to.</p>
+
+
+    <h3>Collections</h3>
+    <p>Here is how you can get all the collections the user has access to. An optional filter can be set to filter the collections by name. In the example below, all the collections which have 'optional_filter_string' in their name will be put in the collections variable in the form of an array.</p>
+    <pre>
+      rise.collections.all({filter: 'optional_filter_setting'}).then(function(response){
+        collections = response.text;
+        // as an array: collections = JSON.parse(response.text);
+      });
+    </pre>
+    <p>Live Example: calling</p>
+    <pre>
+      rise.collections.all().then(function(response){
+         collections = response.text;
+         document.getElementById("result").innerHTML = collections;
+      });  
+    </pre>
+    returns:
+      <pre>
+        <script>
+          rise.collections.all().then(function(response){
+             collections = response.text;
+             document.getElementById("result").innerHTML = collections;
+          });  
+        </script>
+        <pre id='result'></pre>
+      </pre>
+
+    <h3>Collection Resources</h3>
+    <p>You can fetch all the resources for a particular collection by using the following:</p>
+    <pre>
+      rise.collections.resources('the_collection_uuid',{filter: 'optional_filter_setting'}).then(function(response){
+        resources = response.text;
+      });
+    </pre>
+    <p>Live Example: calling</p>
+    <pre>
+      rise.collections.resources(collections[0]['uuid']).then(function(response){
+         resources = response.text;
+         document.getElementById("result_col_res").innerHTML = resources;
+      });  
+    </pre>
+    returns:
+      <pre>
+        <script>
+          rise.collections.all().then(function(response){
+             collections = JSON.parse(response.text);
+             rise.collections.resources(collections[0]['uuid']).then(function(response){
+                resources = response.text;
+                document.getElementById("result_col_res").innerHTML = resources;
+             }); 
+          });
+        </script>
+        <pre id='result_col_res'></pre>
+      </pre>
+
+    <h3>Resources</h3>
+    <p>All other functions are used in the same way as described above. Here is how to get all the resources the current user has access to.</p>
+    <pre>
+      rise.resources.all({filter: 'optional_filter_setting'}).then(function(response){
+        resources = response.text;
+        // as an array: resources = JSON.parse(response.text);
+      });
+    </pre>
+    <p>Live Example: calling</p>
+    <pre>
+      rise.resources.all().then(function(response){
+         resources = response.text;
+         document.getElementById("result_resources").innerHTML = resources;
+      });  
+    </pre>
+    returns:
+      <pre>
+        <script>
+          rise.resources.all().then(function(response){
+             resources = response.text;
+             document.getElementById("result_resources").innerHTML = resources;
+          });  
+        </script>
+        <pre id='result_resources'></pre>
+      </pre>
+
+    <h3>Resource Sections</h3>
+    <p>You can fetch all the sections for a particular resource by using the following:</p>
+    <pre>
+      rise.resources.sections('the_resource_uuid',{filter: 'optional_filter_setting'}).then(function(response){
+        sections = response.text;
+        // as an array: sections = JSON.parse(response.text);
+      });
+    </pre>
+    <p>Live Example: calling</p>
+    <pre>
+      rise.resources.sections(resources[0]['uuid']).then(function(response){
+         sections = response.text;
+         document.getElementById("result_res_sec").innerHTML = sections;
+      });  
+    </pre>
+    returns:
+      <pre>
+        <script>
+          rise.resources.all().then(function(response){
+             resources = JSON.parse(response.text);
+             rise.resources.sections(resources[0]['uuid']).then(function(response){
+                sections = response.text;
+                document.getElementById("result_res_sec").innerHTML = sections;
+             }); 
+          });
+        </script>
+        <pre id='result_res_sec'></pre>
+      </pre>
+
+    <h3>Section Content Units</h3>
+    <p>To get all the content units for a particular section, you have to call the following:</p>
+    <pre>
+      rise.sections.contentUnits('section_uuid').then(function(response){
+        content_units = response.text;
+        // as an array: content_units = JSON.parse(response.text);
+      });
+    </pre>
+    <p>Live Example: calling</p>
+    <pre>
+      rise.sections.contentUnits(sections[0]['uuid']).then(function(response){
+         content_units = response.text;
+         document.getElementById("result_sec_cu").innerHTML = content_units;
+      });  
+    </pre>
+    returns:
+      <pre>
+        <script>
+          rise.resources.all().then(function(response){
+             resources = JSON.parse(response.text);
+             rise.resources.sections(resources[0]['uuid']).then(function(response){
+                sections = JSON.parse(response.text);
+                rise.sections.contentUnits(sections[0]['uuid']).then(function(response){
+                   content_units = response.text;
+                   document.getElementById("result_sec_cu").innerHTML = content_units;
+                }); 
+             }); 
+          });
+        </script>
+        <pre id='result_sec_cu'></pre>
+      </pre>
+  </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-const rise = require('./rise');
+window.rise = require('./rise');
 
 //rise.auth.login('pbelouin@mpiwg-berlin.mpg.de','password');
 //rise.init.setRemote();
@@ -12,7 +12,7 @@ const rise = require('./rise');
 //  console.log(res);
 //});
 //
-//rise.collections.resources(1, {filter: '三'}).then(function(res){
+//rise.collections.resources('uuidertet', {filter: '三'}).then(function(res){
 //  console.log('RESPONSE');
 //  console.log(res);
 //});

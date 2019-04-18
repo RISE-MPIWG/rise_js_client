@@ -34,20 +34,19 @@ const lib = function(){
 }();
 
 exports.init = {
-  user : function(email, password){
-    lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
-      .end((err, res) => {
-        store.set('riseUser',{'email': email, 'password': password});
-        store.set('riseApiToken',res.body['auth_token']);
-      });
-  },
   setRemote : function(remote = 'https://rise.mpiwg-berlin.mpg.de/api'){
     store.set('riseRemote', remote);
   }
 }
 
 exports.auth = {
-
+  login : function(email, password){
+    lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
+      .end((err, res) => {
+        store.set('riseUser',{'email': email});
+        store.set('riseApiToken',res.body['auth_token']);
+      });
+  },
   logout : function (){
     request
       .delete(store.get('riseRemote')+'/sign_out')

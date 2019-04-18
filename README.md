@@ -12,6 +12,8 @@ You can also use this library the 'old-school way' by linking to it using a scri
 
 IMPORTANT: Your IP/Host will need to be whitelisted by the RISE instance you want to access - please contact pbelouin@mpiwg-berlin.mpg.de for more information about this.
 
+### Initialisation
+
 First, you need to init the client library by doing:
 
     rise.init.setRemote();
@@ -19,6 +21,9 @@ First, you need to init the client library by doing:
 This will default the remote to the rise test server (https://rise.mpiwg-berlin.mpg.de). If you prefer to point to a development version or a SHINE-compatible resource provider, simply set the remote of your choice as a parameter to this function like so:
 
     rise.init.setRemote('http://localhost:3000');
+
+
+### Authentication
 
 You can login a user by using auth.login(). Tthis performs the login function on the remote server, and stores the user information/token in local storage.
 
@@ -29,6 +34,8 @@ If you wish to completely logout the user and empty the RISE js library values s
     rise.auth.logout();
 
 Please note that authenticating users is not necessary if you just want to consume public/open resources made available by a SHINE-compatible API.
+
+### Fetching data
 
 You can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If a call is successful, a standard http response object will be made available in the then() function:
 
@@ -43,6 +50,8 @@ Each SHINE API call function that returns a collection or a resource accepts the
 
     filter: allows you to filter the returned objects using a string (defaults to nothing)
     page: fetches the required page (defaults to page 1)
+
+## Contact
 
 Please contact pbelouin@mpiwg-berlin.mpg.de if you have any questions/comments, or if you would like to contribute to this library.
 

@@ -45,7 +45,7 @@ If you wish to completely logout the user and empty the RISE js library values s
 
 Please note that authenticating users is not necessary if you just want to consume public/open resources made available by a SHINE-compatible API.
 
-### Fetching data
+## Fetching data
 
 You can call the RISE collection, resource, sections and content unit fetching functions. These functions return a promise (then() and error() syntax). If a call is successful, a standard http response object will be made available in the then() function:
 

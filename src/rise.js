@@ -14,6 +14,8 @@ const lib = function(){
       .accept('application/json')
       .query(params)
       .set('RISE-API-TOKEN', store.get('riseApiToken'))
+      .set('page', params['page'])
+      .set('per_page', params['per_page'])
       .use(nocache)
   }
 

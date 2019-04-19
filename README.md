@@ -4,11 +4,19 @@ This library is designed to allow developers to interact easily with APIs compat
 
 ## Usage
 
-Import the library by using
+### As an NPM package
+
+This library is available as an npm package called rise_client; Thus, if you use webpack, yarn or similar, you can import this library into your project by running
+    
+     npm install rise_client
+
+at the root of your project. Then, import the library by using
 
     const rise = require('./rise');
 
 This will allow you to call RISE-specific functions.
+
+### Directly from an HTML page
 
 You can also use this library the 'old-school way' by linking to it using a script tag - for more information about this and for a more complete, interactive description of this library, please visit https://rise.mpiwg-berlin.mpg.de/jslib. To know more about the RISE & SHINE project, please visit our website at https://rise.mpiwg-berlin.mpg.de. 
 

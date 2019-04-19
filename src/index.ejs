@@ -4,6 +4,8 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css" rel='stylesheet'/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <% for (var key in htmlWebpackPlugin.files.css) { %>
       <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet"/>
@@ -14,6 +16,7 @@
     <title>Rise Client Documentation</title>
   </head>
   <body>
+    <script>hljs.initHighlightingOnLoad();</script>
     <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" xmlns="http://www.w3.org/2000/svg">
       <symbol id="rise-logo" viewbox="0 0 684 178">
         <path style="fill:#ff4e7b;" d="M535.355796,159 L535.355796,75 C535.355796,64.5065898 543.862385,56 554.355796,56 C564.849206,56 573.355796,64.5065898 573.355796,75 L573.355796,140 L664.355796,140 C674.849206,140 683.355796,148.50659 683.355796,159 C683.355796,169.49341 674.849206,178 664.355796,178 L554.355796,178 C543.862385,178 535.355796,169.49341 535.355796,159 Z M99.3557956,60 C105.430928,60 110.355796,55.0751322 110.355796,49 C110.355796,42.9248678 105.430928,38 99.3557956,38 L19.3557956,38 C8.86238533,38 0.355795579,29.4934102 0.355795579,19 C0.355795579,8.50658975 8.86238533,0 19.3557956,0 L99.3557956,0 C126.417748,0 148.355796,21.9380473 148.355796,49 C148.355796,72.3644807 132.003001,91.9095617 110.118371,96.814285 C109.064839,97.0503997 107.371927,97.2525856 106.293963,97.4196354 C107.366123,98.0361532 108.38227,99.3686325 109.113144,100.343131 C116.989289,110.844658 128.803506,126.596947 144.555796,147.6 C150.851842,155.994728 149.150524,167.903954 140.755796,174.2 C132.361067,180.496046 120.451842,178.794728 114.155796,170.4 L54.27095,90.5535393 C53.0019302,88.8991381 51.9989394,87.0299624 51.3259228,85.0099575 C50.6751041,82.9914848 50.3557956,81.0330316 50.3557956,79 C50.3557956,78.6669875 50.3643629,78.335976 50.3812891,78.0071738 C50.5185509,75.4101939 51.185735,72.850111 52.3579614,70.5010829 C53.533848,68.1538849 55.1816039,66.0840879 57.1768307,64.4160905 C57.4297167,64.2052683 57.6893856,63.9998075 57.9557956,63.8 C59.6360719,62.5397927 61.4571511,61.5999873 63.345838,60.9701273 C65.491477,60.2776972 67.5253389,59.9781022 69.5477197,60 L99.3557956,60 Z M412.355796,140 C423.953775,140 433.355796,130.59798 433.355796,119 C433.355796,107.40202 423.953775,98 412.355796,98 C401.862385,98 393.355796,89.4934102 393.355796,79 C393.355796,68.5065898 401.862385,60 412.355796,60 C444.940596,60 471.355796,86.4151998 471.355796,119 C471.355796,151.5848 444.940596,178 412.355796,178 L332.355796,178 C321.862385,178 313.355796,169.49341 313.355796,159 C313.355796,148.50659 321.862385,140 332.355796,140 L412.355796,140 Z M362.355796,0 L442.355796,0 C452.849206,0 461.355796,8.50658975 461.355796,19 C461.355796,29.4934102 452.849206,38 442.355796,38 L362.355796,38 C356.280663,38 351.355796,42.9248678 351.355796,49 C351.355796,55.0751322 356.280663,60 362.355796,60 C372.849206,60 381.355796,68.5065898 381.355796,79 C381.355796,89.4934102 372.849206,98 362.355796,98 C335.293843,98 313.355796,76.0619527 313.355796,49 C313.355796,21.9380473 335.293843,0 362.355796,0 Z M0.355795579,75 C0.355795579,64.5065898 8.86238533,56 19.3557956,56 C29.8492058,56 38.3557956,64.5065898 38.3557956,75 L38.3557956,159 C38.3557956,169.49341 29.8492058,178 19.3557956,178 C8.86238533,178 0.355795579,169.49341 0.355795579,159 L0.355795579,75 Z M213.355796,19 C213.355796,8.50658975 221.862385,0 232.355796,0 C242.849206,0 251.355796,8.50658975 251.355796,19 L251.355796,159 C251.355796,169.49341 242.849206,178 232.355796,178 C221.862385,178 213.355796,169.49341 213.355796,159 L213.355796,19 Z M554.355796,38 C543.862385,38 535.355796,29.4934102 535.355796,19 C535.355796,8.50658975 543.862385,0 554.355796,0 L664.355796,0 C674.849206,0 683.355796,8.50658975 683.355796,19 C683.355796,29.4934102 674.849206,38 664.355796,38 L554.355796,38 Z M604.355796,98 C593.862385,98 585.355796,89.4934102 585.355796,79 C585.355796,68.5065898 593.862385,60 604.355796,60 L664.355796,60 C674.849206,60 683.355796,68.5065898 683.355796,79 C683.355796,89.4934102 674.849206,98 664.355796,98 L604.355796,98 Z"></path>
@@ -26,107 +29,108 @@
       </svg></a>
       &nbsp;Client Library Documentation</h1>
       <p>This library is designed to allow developers to interact easily with APIs compatible with <a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a>, a restful API protocol that allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. Please visit the <a href="https://rise.mpiwg-berlin.mpg.de">RISE website</a> for more information about SHINE and the RISE project.</p>
+      <p>rise_client.js is a small open-source library built upon <a href="https://github.com/visionmedia/superagent">Superagent</a> and uses local storage to store user information. The functionalities are quite basic at the moment, but we welcome pull requests at <a href="https://github.com/RISE-MPIWG/rise_js_client">https://github.com/RISE-MPIWG/rise_js_client</a></p>
       <h2>Installation</h2>
       <h3>Link to the library in your browser</h3>
       <p>Link to the <a href='rise_client.js' download='rise_client.js'>rise_client.js</a> file in the header of your html file. Alternatively, if you always want the latest version, you can also link to this file directly from our server at <a href="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js">rise.mpiwg-berlin.mpg.de/jslib/rise_client.js</a>. You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to; If you are not sure how to get your host or IP whitelisted, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a>. The most popular RISE instance at the moment is hosted by the <a href="https://www.mpiwg-berlin.mpg.de/">Max Planck Institute for the History of Science</a> at <a href="https://rise.mpiwg-berlin.mpg.de">rise.mpiwg-berlin.mpg.de</a>.</p>
-      <pre>
+      <pre><code>
         &lt;script type="text/javascript" src="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js"&gt;&lt;/script&gt;
-      </pre>
+      </code></pre>
       <h3>Using NPM or Yarn</h3>
       <p>run</p>
-      <pre>npm install rise_client</pre>
+      <pre><code>npm install rise_client</code></pre>
       <p>at the root of your javascript project.</p>
       <h2>Usage</h2>
       <p>The library makes the <b>rise</b> object available. This object allows you to perform action on the SHINE-compatible instance of your choice. You first need to initialise this <b>rise</b> object by pointing it to the instance of your choice. Please note that using <i>setRemote()</i> without a parameter defaults to the <i>rise.mpiwg.berlin.mpg.de/api</i> instance URL.</p>
       <script>
       rise.init.setRemote()
       </script>
-      <pre>
+      <pre><code class='js'>
         rise.init.setRemote();<br>
         rise.init.setRemote('path_to.remote/instance/api');
-      </pre>
+      </code></pre>
       <h3>Authentication</h3>
       <p>Users can sign in using <i>auth.login()</i>. Please note that it is possible to use the API without signing in; In this case, the client will only have access to publicly accessible collections, resources, sections and content units.</p>
-      <pre>
+      <pre><code class='js'>
         rise.auth.login('user@email.com', 'user_password');
-      </pre>
+      </code></pre>
       <p>You can sign out the user by using <i>auth.logout()</i></p>
-      <pre>
+      <pre><code class='js'>
         rise.auth.logout();
-      </pre>
+      </code></pre>
       <p>Please note that it is also possible to authenticate calls to a RISE instance by using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials'>XMLHttp​Request​.with​Credentials</a> property, which will use the active session of the RISE instance you are calling the tool from for authentication. If you are not sure about how to achieve this, please contact <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">Pascal Belouin</a>.</p>
       
       <h2>Fetching text from a  RISE instance or a SHINE-compatible API</h2>
       
-      <p><a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a> is a restful API which allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. The way the SHINE API models this data is shown in the figure below. This library makes this data accessible through the <b>rise</b> object, which features a number of functions, the most important of which are enumerated below.</p>
+      <p><a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a> is a restful API which allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. The way the SHINE API models this data is shown in the figure below. This library makes this data accessible through the <b>rise</b> object, which features a number of functions, the most important of which are enumerated below. Calls to <b>rise</b> functions return <a href="https://developers.google.com/web/fundamentals/primers/promises">promises</a>, which make the response object available in the <i>then()</i> callback for example.</p>
       <img src="https://rise.mpiwg-berlin.mpg.de/assets/rise_resource_domain_model_hz-fbdf8ea5ff7c023af7e520b8410121e814a100effd129989cfb0c027a310fce1.svg">
-      <h3>Preamble: Pagination & Filters</h3>
+      <h3>Pagination & Filters</h3>
       <h4>Pagination</h4>
-      The various objects made available by the SHINE API, i.e <b>Collections</b>, <b>Resources</b>, <b>Sections</b> and <b>Content Units</b> are paginated when fetched as collections. After a successful call, the pagination information is returned by the SHINE-compatible instance as variables in the request header, as shown below:
-      <pre>
+      The various objects made available by the SHINE API, i.e <b>Collections</b>, <b>Resources</b>, <b>Sections</b> and <b>Content Units</b> are paginated when fetched as lists. After a successful call, the pagination information is returned by the SHINE-compatible instance as variables in the response header, as shown below:
+      <pre><code class='js'>
         <b>x-page:</b> 1
         <b>x-per-page:</b> 25
         <b>x-total:</b> 30
-      </pre>
+      </code></pre>
       It is possible to request a particular page, or set the number of objets returned, by setting the <b>page</b> and/or the <b>per_page</b> in the params when calling the function, like so:
-      <pre>
+      <pre><code class='js'>
         rise.resources.all({<b>page: 1, per_page: 100</b>}).then(function(response){
           resources = response.text;
           // resources = JSON.parse(response.text to get the result as a javascript array
           // this will return the first page, with 100 resources in the array present in <b>response.text</b>.
         });      
-      </pre>
+      </code></pre>
       <h4>Filters</h4>
       One can also filter the returned objects by their name, by using <b>filter</b> in the params. For example,
-      <pre>
+      <pre><code class='js'>
         rise.collections.all({filter: 'pascal'}).then(function(response){
           collections = response.text;
           // this will return all the collections that have the string <b>pascal</b> in their name. Please note the results will be paginated as described above.
         });
-      </pre>
+      </code></pre>
 
       <h3>Collections</h3>
       <p>Here is how you can get all the collections the user has access to. An optional filter can be set to filter the collections by name. In the example below, all the collections which have 'optional_filter_string' in their name will be put in the collections variable in the form of an array.</p>
-      <pre>
+      <pre><code class='js'>
         rise.collections.all({filter: 'optional_filter_setting', page: 1, per_page: 100}).then(function(response){
           collections = response.text;
           // as an array: collections = JSON.parse(response.text);
         });
-      </pre>
+      </code></pre>
       <p>Live Example: calling</p>
-      <pre>
+      <pre><code class='js'>
         rise.collections.all({page: 1, per_page: 3}).then(function(response){
            collections = response.text;
            document.getElementById("result").innerHTML = collections;
         });  
-      </pre>
+      </code></pre>
       returns:
-        <pre>
+        <pre><code class='js'>
           <script>
             rise.collections.all({page: 1, per_page: 3}).then(function(response){
                collections = response.text;
                document.getElementById("result").innerHTML = collections;
             });  
           </script>
-          <pre id='result'></pre>
-        </pre>
+          <pre id='result'></code></pre>
+        </code></pre>
 
       <h3>Collection Resources</h3>
       <p>You can fetch all the resources for a particular collection by using the following:</p>
-      <pre>
+      <pre><code class='js'>
         rise.collections.resources('the_collection_uuid',{filter: 'optional_filter_setting'}).then(function(response){
           resources = response.text;
         });
-      </pre>
+      </code></pre>
       <p>Live Example: calling</p>
-      <pre>
+      <pre><code class='js'>
         rise.collections.resources(collections[0]['uuid'], {per_page: 2}).then(function(response){
            resources = response.text;
            document.getElementById("result_col_res").innerHTML = resources;
         });  
-      </pre>
+      </code></pre>
       returns:
-        <pre>
+        <pre><code class='js'>
           <script>
             rise.collections.all().then(function(response){
                collections = JSON.parse(response.text);
@@ -136,52 +140,53 @@
                }); 
             });
           </script>
-          <pre id='result_col_res'></pre>
-        </pre>
+          <pre id='result_col_res'></code></pre>
+        </code></pre>
 
       <h3>Resources</h3>
       <p>All other functions are used in the same way as described above. Here is how to get all the resources the current user has access to.</p>
-      <pre>
+      <pre><code class='js'>
         rise.resources.all({filter: 'optional_filter_setting'}).then(function(response){
           resources = response.text;
           // as an array: resources = JSON.parse(response.text);
         });
-      </pre>
+      </code></pre>
       <p>Live Example: calling</p>
-      <pre>
+      <pre><code class='js'>
         rise.resources.all({}).then(function(response){
            resources = response.text;
            document.getElementById("result_resources").innerHTML = resources;
         });  
-      </pre>
+      </code></pre>
       returns:
-        <pre>
+        <pre><code class='js'>
           <script>
             rise.resources.all().then(function(response){
                resources = response.text;
                document.getElementById("result_resources").innerHTML = resources;
             });  
           </script>
-          <pre id='result_resources'></pre>
-        </pre>
+          <pre id='result_resources'></code></pre>
+        </code></pre>
 
       <h3>Resource Sections</h3>
+      <p><b>Sections</b> are different from collections, resources or content units as they are hierarchical - section hierarchy is used to represent the structure (chapters, sub-chapters...) of resources such as books for example. As you can see in the response data example below, each <b>Section</b> has a parentUuid field, which can be nil, or be set to the <b>uuid</b> of another section of the same resource.</p>
       <p>You can fetch all the sections for a particular resource by using the following:</p>
-      <pre>
+      <pre><code class='js'>
         rise.resources.sections('the_resource_uuid',{filter: 'optional_filter_setting'}).then(function(response){
           sections = response.text;
           // as an array: sections = JSON.parse(response.text);
         });
-      </pre>
+      </code></pre>
       <p>Live Example: calling</p>
-      <pre>
+      <pre><code class='js'>
         rise.resources.sections(resources[0]['uuid']).then(function(response){
            sections = response.text;
            document.getElementById("result_res_sec").innerHTML = sections;
         });  
-      </pre>
+      </code></pre>
       returns:
-        <pre>
+        <pre><code class='js'>
           <script>
             rise.resources.all().then(function(response){
                resources = JSON.parse(response.text);
@@ -191,26 +196,26 @@
                }); 
             });
           </script>
-          <pre id='result_res_sec'></pre>
-        </pre>
+          <pre id='result_res_sec'></code></pre>
+        </code></pre>
 
       <h3>Section Content Units</h3>
       <p>To get all the content units for a particular section, you have to call the following:</p>
-      <pre>
+      <pre><code class='js'>
         rise.sections.contentUnits('section_uuid').then(function(response){
           content_units = response.text;
           // as an array: content_units = JSON.parse(response.text);
         });
-      </pre>
+      </code></pre>
       <p>Live Example: calling</p>
-      <pre>
+      <pre><code class='js'>
         rise.sections.contentUnits(sections[0]['uuid']).then(function(response){
            content_units = response.text;
            document.getElementById("result_sec_cu").innerHTML = content_units;
         });  
-      </pre>
+      </code></pre>
       returns:
-        <pre>
+        <pre><code class='js'>
           <script>
             rise.resources.all().then(function(response){
                resources = JSON.parse(response.text);
@@ -223,8 +228,8 @@
                }); 
             });
           </script>
-          <pre id='result_sec_cu'></pre>
-        </pre>
+          <pre id='result_sec_cu'></code></pre>
+        </code></pre>
       <h3>Feedback, Contact & Participating in the development of rise_client.js</h3>
       <p>
         Please contact <a href='mailto:pbelouin@mpiwg-berlin.mpg.de'>pbelouin@mpiwg-berlin.mpg.de</a> if you have any questions/comments, discovered a bug, or if you would like to contribute to this library.

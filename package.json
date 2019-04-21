@@ -1,6 +1,6 @@
 {
   "name": "rise_client",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "./src/rise.js",
   "jest": {
     "snapshotSerializers": [

@@ -43,17 +43,18 @@ exports.init = {
 
 exports.auth = {
   login : function(email, password){
-    lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
-      .end((err, res) => {
-        store.set('riseUser',{'email': email});
-        store.set('riseApiToken',res.body['auth_token']);
+    return lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
+      .then(function(response){
+         store.set('riseUser',{'email': email});
+         store.set('riseApiToken',res.body['auth_token']);
+         console.log('rise login successful');
       });
   },
   logout : function (){
     request
       .delete(store.get('riseRemote')+'/sign_out')
       .set('RISE-API-TOKEN', store.get('riseApiToken'))
-      .end((err, res) => {
+      .then(function(response){
         store.remove('riseUser');
         store.remove('riseApiToken');
         store.remove('riseRemote');

@@ -37,7 +37,7 @@
       <p>rise_client.js is a small open-source library built upon <a href="https://github.com/visionmedia/superagent">Superagent</a> and uses local storage to store user information. The functions that fetch data from the API return promises, in which the standard HTTP response of the web service is made available. The functionalities are quite basic at the moment, but we welcome pull requests at <a href="https://github.com/RISE-MPIWG/rise_js_client">https://github.com/RISE-MPIWG/rise_js_client</a>.</p>
       <h2>Installation</h2>
       <h3>Load to the library in your HTML file</h3>
-      <p>Link to the <a href='rise_client.js' download='rise_client.js'>rise_client.js</a> file in the header of your html file. Alternatively, if you always want the latest version, you can also link to this file directly from our server at <a href="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js">rise.mpiwg-berlin.mpg.de/jslib/rise_client.js</a>. You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to; If you are not sure how to get your host or IP whitelisted, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a>. The most popular RISE instance at the moment is hosted by the <a href="https://www.mpiwg-berlin.mpg.de/">Max Planck Institute for the History of Science</a> at <a href="https://rise.mpiwg-berlin.mpg.de">rise.mpiwg-berlin.mpg.de</a>.</p>
+      <p>Link to the <a href='rise_client.js' download='rise_client.js'>rise_client.js</a> file in the header of your html file. Alternatively, if you always want the latest version, you can also link to this file directly from our server at <a href="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js">rise.mpiwg-berlin.mpg.de/jslib/rise_client.js</a>. <b style="color:red">IMPORTANT: You will need to make sure that your host is whitelisted by the SHINE-compatible instance you want to connect to; If you are not sure how to get your host or IP whitelisted, please get in touch with <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">pbelouin@mpiwg-berlin.mpg.de</a></b>. The most popular RISE instance at the moment is hosted by the <a href="https://www.mpiwg-berlin.mpg.de/">Max Planck Institute for the History of Science</a> at <a href="https://rise.mpiwg-berlin.mpg.de">rise.mpiwg-berlin.mpg.de</a>.</p>
       <pre><code>&lt;script type="text/javascript" src="https://rise.mpiwg-berlin.mpg.de/jslib/rise_client.js"&gt;&lt;/script&gt;</code></pre>
       <h3>Using NPM or Yarn</h3>
       <p>run</p>
@@ -238,8 +238,7 @@
       <pre><code class='js'>
         rise.resources.sections('the_resource_uuid',{filter: 'optional_filter_setting'})
         .then(function(response){
-          sections = response.text;
-          // as an array: sections = JSON.parse(response.text);
+          sections = response.body;
         })
         .catch(function(error){
           // in case something goes wrong, the error
@@ -261,7 +260,7 @@
         <pre><code class='js'>
           <script>
             rise.resources.all().then(function(response){
-               resources = JSON.parse(response.text);
+               resources = response.body;
                rise.resources.sections(resources[0]['uuid'])
                .then(function(response){
                  sections = response.body;
@@ -277,8 +276,7 @@
       <pre><code class='js'>
         rise.sections.contentUnits('section_uuid')
         .then(function(response){
-          content_units = response.text;
-          // as an array: content_units = JSON.parse(response.text);
+          content_units = response.body;
         });
       </code></pre>
       <p>Live Example: calling</p>

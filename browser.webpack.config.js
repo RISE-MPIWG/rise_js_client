@@ -12,7 +12,7 @@ module.exports = removeEmpty({
   entry:  './src/index_browser.js',
 
   output: {
-    filename: ifProduction('rise.js', 'rise-bundle.js'),
+    filename: ifProduction('rise_client.js', 'rise-bundle.js'),
     path: path.resolve(__dirname, 'public'),
   },
 
@@ -61,6 +61,7 @@ module.exports = removeEmpty({
       filename: 'index.html',
       template: './src/index.ejs',
       environment: nodeEnv,
+      inject: 'head'
     })
   ]),
 });

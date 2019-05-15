@@ -61,6 +61,7 @@ module.exports = removeEmpty({
       filename: 'index.html',
       template: './src/index.ejs',
       environment: nodeEnv,
+      inject: 'head'
     })
   ]),
 });

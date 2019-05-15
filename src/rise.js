@@ -7,20 +7,24 @@ const store = require('store');
 const lib = function(){
 
   function doGet (url, params){
+    const format = store.get('format');
     return request
       .get(store.get('riseRemote') + url)
-      .accept('application/json')
+      .accept('application/' + format)
+      .accept('text/' + format)
+      .set('Content-Type', 'application/' + format)
       .query(params)
       .set('RISE-API-TOKEN', store.get('riseApiToken'))
+      .set('page', params['page'])
+      .set('per_page', params['per_page'])
       .use(nocache)
   }
 
   function doPost (url, params){
-    format = store.get('format');
     return request
       .post(store.get('riseRemote') + url)
-      .set('Content-Type', 'application/'+ format)
-      .accept('application/' + format)
+      .set('Content-Type', 'application/json')
+      .accept('application/json')
       .send(params)
       .use(nocache)
   }
@@ -33,18 +37,9 @@ const lib = function(){
 }();
 
 exports.init = {
-
-  format : function(format = 'json'){
-     store.set('format', format);
-     console.log('format set to '+ format);
-     return true;
-  },
-  user : function(email, password){
-    lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
-      .end((err, res) => {
-        store.set('riseUser',{'email': email, 'password': password});
-        store.set('riseApiToken',res.body['auth_token']);
-      });
+  setFormat : function(format = 'json'){
+    store.set('format', format);
+    return format
   },
   setRemote : function(remote = 'https://rise.mpiwg-berlin.mpg.de/api'){
     store.set('riseRemote', remote);
@@ -52,12 +47,19 @@ exports.init = {
 }
 
 exports.auth = {
-
+  login : function(email, password){
+    return lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
+      .then(function(response){
+         store.set('riseUser',{'email': email});
+         store.set('riseApiToken',res.body['auth_token']);
+         console.log('rise login successful');
+      });
+  },
   logout : function (){
     request
       .delete(store.get('riseRemote')+'/sign_out')
       .set('RISE-API-TOKEN', store.get('riseApiToken'))
-      .end((err, res) => {
+      .then(function(response){
         store.remove('riseUser');
         store.remove('riseApiToken');
         store.remove('riseRemote');

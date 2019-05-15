@@ -1,6 +1,7 @@
 'use strict';
 
 const rise = require('./rise');
+window.rise = rise;
 
 //rise.auth.login('pbelouin@mpiwg-berlin.mpg.de','password');
 //rise.init.setRemote();

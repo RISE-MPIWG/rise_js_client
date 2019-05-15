@@ -4,8 +4,6 @@ const nocache = require('superagent-no-cache');
 const request = require('superagent');
 const store = require('store');
 
-
-
 const lib = function(){
 
   function doGet (url, params){
@@ -18,10 +16,11 @@ const lib = function(){
   }
 
   function doPost (url, params){
+    format = store.get('format');
     return request
       .post(store.get('riseRemote') + url)
-      .set('Content-Type', 'application/json')
-      .accept('application/json')
+      .set('Content-Type', 'application/'+ format)
+      .accept('application/' + format)
       .send(params)
       .use(nocache)
   }
@@ -34,6 +33,12 @@ const lib = function(){
 }();
 
 exports.init = {
+
+  format : function(format = 'json'){
+     store.set('format', format);
+     console.log('format set to '+ format);
+     return true;
+  },
   user : function(email, password){
     lib.doPost('/sign_in','{"user":{"email":"'+email+'","password":"'+password+'"}}')
       .end((err, res) => {

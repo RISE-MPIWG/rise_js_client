@@ -99,9 +99,9 @@
         });
       </code></pre>
       <p>Please note that it is also possible to authenticate calls to a RISE instance by using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials'>XMLHttp​Request​.with​Credentials</a> property, which will use the active session of the RISE instance you are calling the tool from for authentication. If you are not sure about how to achieve this, please contact <a href="mailto:pbelouin@mpiwg-berlin.mpg.de">Pascal Belouin</a>.</p>
-      
+
       <h2><a id='fetching-text'>Fetching text from a  RISE instance or a SHINE-compatible API</h2>
-      
+
       <p><a href="https://rise.mpiwg-berlin.mpg.de/pages/doc_for_developers">SHINE</a> is a restful API which allows clients to browse, filter and access a large number of open and licence-protected structured text resources from a wide variety of providers. The way the SHINE API models this data is shown in the figure below. This library makes this data accessible through the <b>rise</b> object, which features a number of functions, the most important of which are enumerated below. Calls to <b>rise</b> functions return <a href="https://developers.google.com/web/fundamentals/primers/promises">promises</a>, which make the response object available in the <i>then()</i> callback for example.</p>
       <img src="https://rise.mpiwg-berlin.mpg.de/assets/rise_resource_domain_model_hz-fbdf8ea5ff7c023af7e520b8410121e814a100effd129989cfb0c027a310fce1.svg">
       <h3><a id='collections'>Collections</a></h3>
@@ -117,29 +117,90 @@
           // catch function
           console.log(error.response.body);
           console.log(error.status);
-        }); 
+        });
       </code></pre>
-      <p>Live Example: calling</p>
+      <p>Example: calling</p>
       <pre><code class='js'>
         rise.collections.all({page: 1, per_page: 3})
         .then(function(response){
           collections = response.body;
           document.getElementById("result").innerHTML = JSON.stringify(collections);
-        }); 
+        });
       </code></pre>
       returns:
         <pre><code class='js'>
-          <script>
+          [
+            {
+            "uuid": "ea637cb7-98de-44dc-8d6b-b55bc97db852",
+            "name": "BETAMASAHEFT - Beta maṣāḥǝft Manuscripts",
+            "resourceCount": 182
+            },
+            {
+            "uuid": "2c2d5f66-6410-45e5-9bf8-8d0ad2e92149",
+            "name": "CBETA - A 金藏",
+            "resourceCount": 9
+            },
+            {
+            "uuid": "bc71b08a-4364-4b66-95f5-e8826390d92e",
+            "name": "CBETA - B 大藏經補編",
+            "resourceCount": 164
+            }
+          ]
+          <!-- <script>
             rise.collections.all({page: 1, per_page: 3})
             .then(function(response){
                collections = response.body;
                collectionsString = JSON.stringify(collections)
                document.getElementById("result").innerHTML = collectionsString;
-            });  
-          </script>
-          <pre id='result'></pre>
+            });
+          </script> -->
+          <!-- <pre id='result'></pre> -->
         </code></pre>
+        <h3><a id='collection-resources'>Collection Metadata</a></h3>
+        <p>You can fetch metadata for a particular collection by using the following:</p>
+        <pre><code class='js'>
+          rise.collections.matadata('the_collection_uuid')
+          .then(function(response){
+            resources = response.body;
+          })
+          .catch(function(error){
+            // in case something goes wrong, the error
+            // data is made available in the
+            // catch function
+            console.log(error.response.body);
+            console.log(error.status);
+          });
+        </code></pre>
+        <p>Example: calling</p>
+        <pre><code class='js'>
+          rise.collections.metadata('the_collection_uuid')
+          .then(function(response){
+             resources = response.body;
+             document.getElementById("result_col_res").innerHTML = JSON.stringify(resources);
+          });
+        </code></pre>
+        returns:
+          <pre><code class='js'>
+            {
+              "dublincore": {
+                "language":"zh-Hant",
 
+                ...
+              }
+              ...
+            }
+            <!-- <script>
+              rise.collections.all()
+              .then(function(response){
+                 collections = response.body;
+                 rise.collections.resources(collections[0]['uuid'], {per_page: 2}).then(function(response){
+                    resources = response.text;
+                    document.getElementById("result_col_res").innerHTML = resources;
+                 });
+              });
+            </script>
+            <pre id='result_col_res'></code></pre> -->
+          </code></pre>
       <h3><a id='collection-resources'>Collection Resources</a></h3>
       <p>You can fetch all the resources for a particular collection by using the following:</p>
       <pre><code class='js'>
@@ -155,7 +216,7 @@
           console.log(error.status);
         });
       </code></pre>
-      <p>Live Example: calling</p>
+      <p> Example: calling</p>
       <pre><code class='js'>
         rise.collections.resources(collections[0]['uuid'], {per_page: 2})
         .then(function(response){
@@ -165,17 +226,29 @@
       </code></pre>
       returns:
         <pre><code class='js'>
-          <script>
+          [
+            {
+            "uuid": "b2401d6f-8355-4651-add0-a8d95d6aa75c",
+            "name": "B0001 均如大師華嚴學全書",
+            "id": 934
+            },
+            {
+            "uuid": "b31c5bab-2cc1-4003-82ba-e6194045adc7",
+            "name": "B0002 華嚴經疏論纂要",
+            "id": 935
+            }
+          ]
+          <!-- <script>
             rise.collections.all()
             .then(function(response){
                collections = response.body;
                rise.collections.resources(collections[0]['uuid'], {per_page: 2}).then(function(response){
                   resources = response.text;
                   document.getElementById("result_col_res").innerHTML = resources;
-               }); 
+               });
             });
           </script>
-          <pre id='result_col_res'></code></pre>
+          <pre id='result_col_res'></code></pre> -->
         </code></pre>
 
       <h3><a id='resources'>Resources</a></h3>
@@ -191,27 +264,110 @@
           // catch function
           console.log(error.response.body);
           console.log(error.status);
-        }); 
+        });
       </code></pre>
-      <p>Live Example: calling</p>
+      <p>Example: calling</p>
       <pre><code class='js'>
         rise.resources.all({})
         .then(function(response){
            resources = response.body;
            document.getElementById("result_resources").innerHTML = JSON.stringify(resources);
-        });  
+        });
       </code></pre>
       returns:
         <pre><code class='js'>
-          <script>
+          [
+            {
+            "uuid": "5cacadbd-eb9c-4bb3-bdea-62f6ca01db35",
+            "name": "500 Millions De La Begum",
+            "collectionUuid": "9ccd8ea9-1e22-45a5-94c0-901d55465538",
+            "uri": "https://rise-rp.mpiwg-berlin.mpg.de/api/resources/6f0570d7-e41a-448e-ad36-a941f6ae53fd"
+            },
+            {
+            "uuid": "598cd218-3989-4b8f-994f-9189f841f784",
+            "name": "A1057 新譯大方廣佛華嚴經音義",
+            "collectionUuid": "2c2d5f66-6410-45e5-9bf8-8d0ad2e92149",
+            "uri": "http://cbdata.dila.edu.tw/v1.2/api/resources/db86ecd1-1f90-48a4-96f0-8f532d770a0b"
+            },
+            {
+            "uuid": "834c25d1-a4cf-4fc9-a3f5-9b13e604c7cf",
+            "name": "A1267 大唐開元釋教廣品歷章",
+            "collectionUuid": "2c2d5f66-6410-45e5-9bf8-8d0ad2e92149",
+            "uri": "http://cbdata.dila.edu.tw/v1.2/api/resources/e486e1dd-0385-4318-8bf2-429ea87a2eab"
+            },
+            {
+            "uuid": "1d905ca2-230a-496d-bcaf-4224c3349cdc",
+            "name": "A1490 天聖釋教總錄",
+            "collectionUuid": "2c2d5f66-6410-45e5-9bf8-8d0ad2e92149",
+            "uri": "http://cbdata.dila.edu.tw/v1.2/api/resources/0122d671-42b0-4482-800e-848d3f9b3482"
+            },
+
+            ...
+          ]
+          <!-- <script>
             rise.resources.all()
             .then(function(response){
               resources = response.body;
               document.getElementById("result_resources").innerHTML = JSON.stringify(resources);
-            });  
+            });
           </script>
-          <pre id='result_resources'></code></pre>
+          <pre id='result_resources'></code></pre> -->
         </code></pre>
+
+        <h3><a id='resource-metadata'>Resource Metadata</a></h3>
+        <p>You can fetch metadata for a particular resource by using the following:</p>
+        <pre><code class='js'>
+          rise.resources.matadata('the_resource_uuid')
+          .then(function(response){
+            resources = response.body;
+          })
+          .catch(function(error){
+            // in case something goes wrong, the error
+            // data is made available in the
+            // catch function
+            console.log(error.response.body);
+            console.log(error.status);
+          });
+        </code></pre>
+        <p>Example: calling</p>
+        <pre><code class='js'>
+          rise.resources.metadata('the_resource_uuid')
+          .then(function(response){
+             resources = response.body;
+             document.getElementById("result_col_res").innerHTML = JSON.stringify(resources);
+          });
+        </code></pre>
+        returns:
+          <pre><code class='js'>
+            {
+              "name": "伊犁總統事略",
+              "author": "[祁韻士... et al. 編纂].",
+              "level1": null,
+              "level2": null,
+              "period": null,
+              "source": "哈佛燕京珍稀方志庫",
+              "volume": "12卷附西陲竹枝詞1卷",
+              "dynasty": null,
+              "edition": null,
+              "bookYear": 1809,
+              "language": "zh-Hant",
+              "latitude": null,
+              "longitude": null,
+              "totalPage": 423,
+              "editionYear": 0
+              }
+            <!-- <script>
+              rise.collections.all()
+              .then(function(response){
+                 collections = response.body;
+                 rise.collections.resources(collections[0]['uuid'], {per_page: 2}).then(function(response){
+                    resources = response.text;
+                    document.getElementById("result_col_res").innerHTML = resources;
+                 });
+              });
+            </script>
+            <pre id='result_col_res'></code></pre> -->
+          </code></pre>
 
       <h3><a id='resource-sections'>Resource Sections</a></h3>
       <p><b>Sections</b> are different from collections, resources or content units as they are hierarchical - section hierarchy is used to represent the structure (chapters, sub-chapters...) of resources such as books for example. As you can see in the response data example below, each <b>Section</b> has a parentUuid field, which can be nil, or be set to the <b>uuid</b> of another section of the same resource.</p>
@@ -227,9 +383,9 @@
           // catch function
           console.log(error.response.body);
           console.log(error.status);
-        }); 
+        });
       </code></pre>
-      <p>Live Example: calling</p>
+      <p>Example: calling</p>
       <pre><code class='js'>
         rise.resources.sections(resources[0]['uuid'])
         .then(function(response){
@@ -239,17 +395,42 @@
       </code></pre>
       returns:
         <pre><code class='js'>
-          <script>
+          [
+            {
+            "uuid": "7334edca-5e3a-489d-a68d-90ab750cefe8",
+            "name": "A1494 景祐新修法寶錄 第1卷",
+            "parentUuid": null,
+            "uri": "http://cbdata.dila.edu.tw/v1.2/apisections/6660e65b-9936-4ff7-af13-2f8111452739",
+            "contentUnitCount": 23
+            },
+            {
+            "uuid": "6ee459d7-52b5-47ac-b628-32bc8aea7502",
+            "name": "A1494 景祐新修法寶錄 第2卷",
+            "parentUuid": null,
+            "uri": "http://cbdata.dila.edu.tw/v1.2/apisections/9a833ea9-5132-47b7-b744-87a441367fd6",
+            "contentUnitCount": 34
+            },
+            {
+            "uuid": "e3d883ce-4b7f-4ebe-831d-5d4deb42a182",
+            "name": "A1494 景祐新修法寶錄 第3卷",
+            "parentUuid": null,
+            "uri": "http://cbdata.dila.edu.tw/v1.2/apisections/8b2a8398-1465-42e4-a396-e124768c2b73",
+            "contentUnitCount": 35
+          },
+
+          ...
+        ]
+          <!-- <script>
             rise.resources.all().then(function(response){
                resources = response.body;
                rise.resources.sections(resources[0]['uuid'])
                .then(function(response){
                  sections = response.body;
                  document.getElementById("result_res_sec").innerHTML = JSON.stringify(sections);
-               }); 
+               });
             });
           </script>
-          <pre id='result_res_sec'></code></pre>
+          <pre id='result_res_sec'></code></pre> -->
         </code></pre>
 
       <h3><a id='section-content-units'>Section Content Units</a></h3>
@@ -260,7 +441,7 @@
           content_units = response.body;
         });
       </code></pre>
-      <p>Live Example: calling</p>
+      <p>Example: calling</p>
       <pre><code class='js'>
         rise.sections.contentUnits(sections[0]['uuid'])
         .then(function(response){
@@ -273,11 +454,18 @@
           // catch function
           console.log(error.response.body);
           console.log(error.status);
-        });  
+        });
       </code></pre>
       returns:
         <pre><code class='js'>
-          <script>
+          [
+            {
+            "section_id": 79394,
+            "name": "A1494 景祐新修法寶錄 第1卷",
+            "content": "有大迦葉洎阿那含共綴遺文贊明了義此則經論之所權輿也其後白馬西來蘭臺中閟於是華人識清淨"
+            }
+          ]
+          <!-- <script>
             rise.resources.all().then(function(response){
                resources = JSON.parse(response.text);
                rise.resources.sections(resources[0]['uuid']).then(function(response){
@@ -285,12 +473,66 @@
                   rise.sections.contentUnits(sections[0]['uuid']).then(function(response){
                     contentUnits = response.body;
                     document.getElementById("result_sec_cu").innerHTML = JSON.stringify(contentUnits);
-                  }); 
-               }); 
+                  });
+               });
             });
           </script>
-          <pre id='result_sec_cu'></code></pre>
+          <pre id='result_sec_cu'></code></pre> -->
         </code></pre>
+        <h3><a id='resource-metadata'>Section Metadata</a></h3>
+        <p>You can fetch metadata for a particular section by using the following:</p>
+        <pre><code class='js'>
+          rise.sections.matadata('the_section_uuid')
+          .then(function(response){
+            resources = response.body;
+          })
+          .catch(function(error){
+            // in case something goes wrong, the error
+            // data is made available in the
+            // catch function
+            console.log(error.response.body);
+            console.log(error.status);
+          });
+        </code></pre>
+        <p>Example: calling</p>
+        <pre><code class='js'>
+          rise.resources.metadata('the_section_uuid')
+          .then(function(response){
+             resources = response.body;
+             document.getElementById("result_col_res").innerHTML = JSON.stringify(resources);
+          });
+        </code></pre>
+        returns:
+          <pre><code class='js'>
+            {
+            "name": "伊犁總統事略",
+            "author": "[祁韻士... et al. 編纂].",
+            "level1": null,
+            "level2": null,
+            "period": null,
+            "source": "哈佛燕京珍稀方志庫",
+            "volume": "12卷附西陲竹枝詞1卷",
+            "dynasty": null,
+            "edition": null,
+            "bookYear": 1809,
+            "language": "zh-Hant",
+            "latitude": null,
+            "longitude": null,
+            "totalPage": 423,
+            "editionYear": 0
+            }
+            <!-- <script>
+              rise.collections.all()
+              .then(function(response){
+                 collections = response.body;
+                 rise.collections.resources(collections[0]['uuid'], {per_page: 2}).then(function(response){
+                    resources = response.text;
+                    document.getElementById("result_col_res").innerHTML = resources;
+                 });
+              });
+            </script>
+            <pre id='result_col_res'></code></pre> -->
+          </code></pre>
         <h3><a id='pagination-and-filters'>Pagination & Filters</a></h3>
         <h4>Pagination</h4>
         The various objects made available by the SHINE API, i.e <b>Collections</b>, <b>Resources</b>, <b>Sections</b> and <b>Content Units</b> are paginated when fetched as lists. After a successful call, the pagination information is returned by the SHINE-compatible instance as variables in the response header, as shown below:
@@ -311,7 +553,7 @@
             // catch function
             console.log(error.response.body);
             console.log(error.status);
-          });      
+          });
         </code></pre>
         <h4>Filters</h4>
         One can also filter the returned objects by their name, by using <b>filter</b> in the params. For example,
@@ -327,9 +569,9 @@
             // catch function
             console.log(error.response.body);
             console.log(error.status);
-          }); 
+          });
         </code></pre>
-  
+
       <h3><a id='feedback'>Feedback, Contact & Participating in the development of rise_client.js</a></h3>
       <p>
         Please contact <a href='mailto:pbelouin@mpiwg-berlin.mpg.de'>pbelouin@mpiwg-berlin.mpg.de</a> if you have any questions/comments, discovered a bug, or if you would like to contribute to this library.

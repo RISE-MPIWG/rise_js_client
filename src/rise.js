@@ -78,6 +78,9 @@ exports.collections = {
   },
   resources : function(uuid, params = { ...params}){
     return lib.doGet('/collections/'+uuid+'/resources', params);
+  },
+  metadata : function(uuid){
+    return lib.doGet('/collections/'+uuid+'/metadata');
   }
 }
 
@@ -91,6 +94,9 @@ exports.resources = {
   },
   sections : function(uuid, params = { ...params}){
     return lib.doGet('/resources/'+uuid+'/sections', params);
+  },
+  metadata : function(uuid){
+    return lib.doGet('/collections/'+uuid+'/metadata');
   }
 }
 
@@ -98,5 +104,8 @@ exports.sections = {
 
   contentUnits : function(uuid, params = { ...params}){
     return lib.doGet('/sections/'+uuid+'/content_units', params);
+  },
+  metadata : function(uuid){
+    return lib.doGet('/collections/'+uuid+'/metadata');
   }
 }

@@ -8,15 +8,16 @@ const lib = function(){
 
   function doGet (url, params){
     const format = store.get('format');
+    const page = params ? params['page'] : 1
+    const per_page = params ? params['per_page'] : 6000
     return request
       .get(store.get('riseRemote') + url)
       .accept('application/' + format)
-      .accept('text/' + format)
       .set('Content-Type', 'application/' + format)
       .query(params)
       .set('RISE-API-TOKEN', store.get('riseApiToken'))
-      .set('page', params['page'])
-      .set('per_page', params['per_page'])
+      .set('page', page)
+      .set('per_page', per_page)
       .use(nocache)
   }
 
@@ -80,7 +81,7 @@ exports.collections = {
     return lib.doGet('/collections/'+uuid+'/resources', params);
   },
   metadata : function(uuid){
-    return lib.doGet('/collections/'+uuid+'/metadata');
+    return lib.doGet('/collections/'+uuid+'/metadata', null);
   }
 }
 
@@ -96,7 +97,7 @@ exports.resources = {
     return lib.doGet('/resources/'+uuid+'/sections', params);
   },
   metadata : function(uuid){
-    return lib.doGet('/collections/'+uuid+'/metadata');
+    return lib.doGet('/resources/'+uuid+'/metadata', null);
   }
 }
 
